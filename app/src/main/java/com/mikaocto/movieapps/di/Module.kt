@@ -1,12 +1,19 @@
 package com.mikaocto.movieapps.di
 
 import com.mikaocto.movieapps.domain.API
+import com.mikaocto.movieapps.repository.RemoteRepository
+import com.mikaocto.movieapps.repository.RemoteRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.HttpUrl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import okio.IOException
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -30,12 +37,16 @@ object Module {
             .build()
 
         retrofit = Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3")
+            .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
 
         return retrofit.create(API::class.java)
     }
+
+
+    @Provides
+    fun provideRemoteRepository(api: API): RemoteRepository = RemoteRepositoryImpl(api)
 
 }
