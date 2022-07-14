@@ -25,8 +25,7 @@ class RemoteRepositoryTest {
 
     @Before
     fun setupRepository() {
-        val api = Module.apiProvide()
-        remoteRepository = FakeRemoteRepoImpl(api)
+        remoteRepository = FakeRemoteRepoImpl()
     }
 
 

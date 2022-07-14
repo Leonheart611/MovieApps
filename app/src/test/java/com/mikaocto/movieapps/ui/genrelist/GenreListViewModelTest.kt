@@ -24,9 +24,7 @@ class GenreListViewModelTest {
 
     @Before
     fun setupViewModel() {
-        val api = Module.apiProvide()
-        val remoteRepository = FakeRemoteRepoImpl(api)
-
+        val remoteRepository = FakeRemoteRepoImpl()
         viewModel = GenreListViewModel(remoteRepository)
     }
 

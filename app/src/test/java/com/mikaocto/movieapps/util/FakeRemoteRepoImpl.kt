@@ -9,7 +9,7 @@ import com.mikaocto.movieapps.repository.RemoteRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeRemoteRepoImpl(val api: API) : RemoteRepository {
+class FakeRemoteRepoImpl : RemoteRepository {
     override suspend fun getAllGenre(): Flow<MutableList<Genre>> = flow {
         emit(DataHelper.genreList)
     }
