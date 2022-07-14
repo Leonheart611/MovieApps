@@ -12,7 +12,7 @@ class GenreListAdapter(val listener: OnGenreClicklistener) :
     ListAdapter<Genre, GenreListAdapter.GenreListHolder>(GenreDiffUtil()) {
 
     interface OnGenreClicklistener {
-        fun onGenreClicklistener(id: Int)
+        fun onGenreClicklistener(genre: Genre)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreListHolder {
@@ -35,7 +35,7 @@ class GenreListAdapter(val listener: OnGenreClicklistener) :
         fun bind(data: Genre) {
             binding.tvGenreName.text = data.name
             binding.root.setOnClickListener {
-                listener.onGenreClicklistener(data.id)
+                listener.onGenreClicklistener(data)
             }
         }
     }

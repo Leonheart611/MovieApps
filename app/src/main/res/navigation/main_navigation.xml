@@ -8,5 +8,21 @@
         android:id="@+id/genreListFragment"
         android:name="com.mikaocto.movieapps.ui.genrelist.GenreListFragment"
         android:label="fragment_genre_list"
-        tools:layout="@layout/fragment_genre_list" />
+        tools:layout="@layout/fragment_genre_list" >
+        <action
+            android:id="@+id/action_genreListFragment_to_movieListFragment"
+            app:destination="@id/movieListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.mikaocto.movieapps.ui.movielist.MovieListFragment"
+        android:label="fragment_movie_list"
+        tools:layout="@layout/fragment_movie_list" >
+        <argument
+            android:name="genreId"
+            app:argType="integer" />
+        <argument
+            android:name="genreName"
+            app:argType="string" />
+    </fragment>
 </navigation>

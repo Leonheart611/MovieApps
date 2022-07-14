@@ -26,13 +26,10 @@ data class Result(
     val vote_count: Int
 ) {
     fun toMovieData(): Movie = Movie(
-        id,
-        original_language,
-        original_title,
-        overview,
-        popularity,
-        poster_path,
-        release_date,
-        title
+        id = id,
+        vote = vote_average,
+        poster_path = poster_path,
+        release_date = release_date,
+        title = title
     )
 }

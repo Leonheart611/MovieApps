@@ -22,8 +22,6 @@ class GenreListViewModel @Inject constructor(private val remoteRepository: Remot
     fun getAllGenre() {
         viewModelScope.launch {
             remoteRepository.getAllGenre().catch { e ->
-                e.cause
-                Log.e("error mulu", e.message.toString())
                 _genreViewState.postValue(GenreViewState.OnFailureGetGenre(e.message.toString()))
             }.collect {
                 _genreViewState.postValue(GenreViewState.OnSuccessGetGenre(it))

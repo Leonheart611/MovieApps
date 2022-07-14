@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mikaocto.movieapps.R
 import com.mikaocto.movieapps.databinding.FragmentGenreListBinding
+import com.mikaocto.movieapps.domain.response.Genre
 import com.mikaocto.movieapps.ui.adapter.GenreListAdapter
 import com.mikaocto.movieapps.util.makeToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,9 +62,10 @@ class GenreListFragment : Fragment(), GenreListAdapter.OnGenreClicklistener {
 
     }
 
-    override fun onGenreClicklistener(id: Int) {
-
+    override fun onGenreClicklistener(genre: Genre) {
+        val action = GenreListFragmentDirections.actionGenreListFragmentToMovieListFragment(
+            genreId = genre.id, genreName = genre.name
+        )
+        findNavController().navigate(action)
     }
-
-
 }

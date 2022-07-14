@@ -3,4 +3,7 @@
     <string name="apps_intro">Welcome to Movie Apps, this application using themoviedb API</string>
     <string name="genre_official_title">Genre Official</string>
     <string name="genre_official_subtitle">Please select the genre you want to see</string>
+    <string name="movie_list_title">Movie List</string>
+    <string name="movie_list_subtitle">Please select movie you want to see the detail</string>
+    <string name="movie_list_genre_title">Genre: %1$s</string>
 </resources>
