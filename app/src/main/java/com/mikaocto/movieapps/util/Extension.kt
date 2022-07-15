@@ -19,3 +19,11 @@ fun ImageView.loadImage(url: String) {
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(this)
 }
+
+fun ImageView.loadAvatar(url: String) {
+    Glide.with(this.context)
+        .load("https://image.tmdb.org/t/p/w500/$url")
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .apply(RequestOptions.circleCropTransform())
+        .into(this)
+}
