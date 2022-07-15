@@ -16,6 +16,13 @@ This is the library list to develop this Project:
 - [Pagging] - for automaticly page recyleview without handle the ui logic
 - [Coroutines] - design pattern for calling asynchronously code for calling network API
 
+
+## Architecture
+
+This application using MVVM architecture
+
+MVVM architecture is a Model-View-ViewModel architecture that removes the tight coupling between each component
+
 ## Thank You
 
 
