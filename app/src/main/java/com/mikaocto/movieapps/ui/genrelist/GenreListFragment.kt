@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikaocto.movieapps.R
 import com.mikaocto.movieapps.databinding.FragmentGenreListBinding
 import com.mikaocto.movieapps.domain.response.Genre
+import com.mikaocto.movieapps.ui.MainActivity
 import com.mikaocto.movieapps.ui.adapter.GenreListAdapter
 import com.mikaocto.movieapps.util.makeToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,11 +27,13 @@ class GenreListFragment : Fragment(), GenreListAdapter.OnGenreClicklistener {
     private var _binding: FragmentGenreListBinding? = null
     private val binding get() = _binding!!
     private val genreListAdapter = GenreListAdapter(this)
+    private var activity: MainActivity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity = requireActivity() as MainActivity
         _binding = FragmentGenreListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,13 +46,15 @@ class GenreListFragment : Fragment(), GenreListAdapter.OnGenreClicklistener {
             layoutManager = GridLayoutManager(context, 2)
             adapter = genreListAdapter
         }
-
         viewModel.getAllGenre()
         viewModel.genreViewState.observe(viewLifecycleOwner) {
             when (it) {
                 is GenreViewState.OnFailureGetGenre -> {
                     binding.pbGenreList.isVisible = false
-                    context?.makeToast(it.message)
+                    activity?.showErrorDialog(it.message) {
+                        binding.pbGenreList.isVisible = true
+                        viewModel.getAllGenre()
+                    }
                 }
                 is GenreViewState.OnSuccessGetGenre -> {
                     binding.pbGenreList.isVisible = false

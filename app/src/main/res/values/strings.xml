@@ -7,8 +7,10 @@
     <string name="movie_list_subtitle">Please select movie you want to see the detail</string>
     <string name="movie_list_genre_title">Genre: %1$s</string>
     <string name="movie_detail_toolbar_title">Movie Detail</string>
-    <string name="movie_detail_tagline">"%1$s"</string>
+    <string name="movie_detail_tagline">\"%1$s\"</string>
     <string name="movie_detail_release_date">Release Date: %1$s</string>
     <string name="movie_detail_user_review_title">User Reviews</string>
     <string name="movie_detail_video_title">Video</string>
+    <string name="error_title">Something went wrong check your internet connection</string>
+    <string name="error_action">Retry</string>
 </resources>

@@ -4,39 +4,40 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mikaocto.movieapps.R
 import com.mikaocto.movieapps.data.MovieDetail
 import com.mikaocto.movieapps.databinding.FragmentMovieDetailBinding
-import com.mikaocto.movieapps.domain.response.Genre
-import com.mikaocto.movieapps.ui.adapter.GenreListAdapter
+import com.mikaocto.movieapps.ui.MainActivity
 import com.mikaocto.movieapps.ui.adapter.ReviewListAdapter
 import com.mikaocto.movieapps.util.loadImage
+import com.mikaocto.movieapps.util.makeToast
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MovieDetailFragment : Fragment(){
+class MovieDetailFragment : Fragment() {
 
     private val viewModel: MovieDetailViewModel by viewModels()
     private var _binding: FragmentMovieDetailBinding? = null
     private val binding get() = _binding!!
     private val reviewListAdapter = ReviewListAdapter()
     private val args: MovieDetailFragmentArgs by navArgs()
+    private var activity: MainActivity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity = requireActivity() as MainActivity
         _binding = FragmentMovieDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -53,9 +54,15 @@ class MovieDetailFragment : Fragment(){
         viewModel.movieDetail.observe(viewLifecycleOwner) {
             when (it) {
                 is MovieDetailViewState.OnFailureGetMovieDetail -> {
-
+                    binding.pbDetailLoad.isVisible = false
+                    activity?.showErrorDialog(it.message) {
+                        binding.pbDetailLoad.isVisible = true
+                        viewModel.getMovieDetail(args.movieId)
+                    }
                 }
                 is MovieDetailViewState.OnSuccessGetMovieDetail -> {
+                    binding.pbDetailLoad.isVisible = false
+                    binding.mainView.isVisible = true
                     setViewValue(it.data)
                 }
             }
