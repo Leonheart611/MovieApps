@@ -23,19 +23,19 @@ data class ReviewResult(
 ) {
     fun toReviewData() = Review(
         authorName = author_details.name.ifEmpty { author },
-        avatar_path = author_details.avatar_path,
+        avatar_path = author_details.avatar_path.orEmpty(),
         content = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT)
         } else {
             Html.fromHtml(content)
         },
-        rating = author_details.rating.toFloat()
+        rating = author_details.rating?.toFloat() ?: 0f
     )
 }
 
 data class AuthorDetails(
-    val avatar_path: String,
+    val avatar_path: String?,
     val name: String,
-    val rating: Double,
+    val rating: Double?,
     val username: String
 )
